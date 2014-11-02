@@ -1,0 +1,54 @@
+<html>
+<head>
+</head>
+
+<body>
+    <div>
+        <svg id="circles"></svg>
+    </div>
+
+    <!-- Include d3.js -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        // basic way to grab data, grabs all of it
+        height = 800
+        width = 1000 
+
+        circlesSVG = d3.select('#circles')
+                        .attr('height', height)
+                        .attr('width', width)
+
+        d3.csv('../../../../course/data/Consumer_Complaints.csv', function(data) {
+            // do the damn things
+            
+            debugger;
+
+            // size of circles
+            dataForBinding = []
+
+            companyArray = []
+
+            data.forEach(function(d, i, array) {
+                debugger;
+                if (companyArray[d.Company]){
+                    companyArray[d.Company].score++; // add one to the score if there's already a company entry
+                    debugger;
+                } else { // create a new entry if it doesn't already exist
+                    companyArray.push({Company:d.Company, Score:1})
+                }
+            });
+            
+            dataForBinding.push(companyArray)
+            
+            circles = circlesSVG.selectAll('circle') // this is a selection of a selection
+                            .data(dataForBinding)
+                            .enter()
+                            .append('circle')
+                    
+            circles.attr('cx', function() { return Math.max(0, Math.random() * width ) }) // anonymous functions
+                    .attr('cy', function() { return Math.max(0, Math.random() * height) })
+                    .attr('r', function(d) { return d.score / 100 })
+                    .style('fill', function(d) { return d.color })
+        });
+    </script>
+</body>

@@ -28,9 +28,11 @@
 				var height = 300,
 					barWidth = 60,
 					barSpace = 10,
-					chartData;
+					//csvPath = "/course/data/Consumer_Complaints.csv";
+					csvPath = "/course/data/top_complaint_companies.csv";
 
-				d3.csv('/course/data/Consumer_Complaints.csv', function(data) {
+				d3.csv(csvPath, function(data) {
+					/*
 					chartData = d3.nest()
 						// set rollup key
 						.key(function(d) { return d.Company; })
@@ -42,10 +44,17 @@
 						.sort(function(a, b) { return b.values - a.values; })
 						// get top 10
 						.filter(function(d, i) {return i < 10});
+					*/
+
+					chartData = data
+						// descending sort
+						.sort(function(a, b) { return b.complaints - a.complaints; })
+						// get top 10
+						.filter(function(d, i) {return i < 10});
 
 					// get scaling function to properly adjust bar heights
 					var y = d3.scale.linear()
-						.domain([0, d3.max(chartData, function(d) {return d.values;})])
+						.domain([0, d3.max(chartData, function(d) {return parseInt(d.complaints);})])
 						.range([0, height]);
 
 					// set chart dimensions
@@ -58,7 +67,7 @@
 						.data(chartData)
 						.enter().append("g")
 						.attr("transform", function(d, i) {
-							var bHeight = height - y(d.values),
+							var bHeight = height - y(d.complaints),
 								bWidth = i * (barWidth + barSpace);
 							return "translate(" + bWidth + "," + bHeight + ")";
 						});
@@ -66,7 +75,7 @@
 					// append rectangles inside each column
 					bar.append("rect")
 						.attr("width", barWidth)
-						.attr("height", function(d) {return y(d.values);});
+						.attr("height", function(d) {return y(d.complaints);});
 					
 					// add "complaint count" text
 					bar.append("text")
@@ -77,7 +86,7 @@
 							return 10;
 						})
 						.attr("dy", ".3em")
-						.text(function(d) { return d.values; });
+						.text(function(d) { return d.complaints; });
 						
 					// add "company name" text and wrap it properly
 					bar.append("text")
@@ -85,7 +94,7 @@
 						.attr("y",  30)
 						.attr("width", barWidth)
 						.attr("dy", ".3em")
-						.text(function(d) {return d.key;})
+						.text(function(d) {return d.company;})
 						.classed("company", true)
 						.call(wrap, barWidth);
 				});

@@ -10,11 +10,12 @@
 		 	}
 		 	.barchart text {
 		 		fill:white;
-		 		font:10px sans-serif;
+		 		font:12px sans-serif;
 		 		text-anchor:middle;
 		 	}
 		 	.barchart text.company {
-		 		fill:black;
+		 		fill:yellow;
+		 		font-size:12px;
 		 	}
 		 </style>
 	</head>
@@ -25,27 +26,12 @@
 		 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		 <script>
 				// basic way to grab data, grabs all of it
-				var height = 300,
-					barWidth = 60,
+				var height = 400,
+					barWidth = 70,
 					barSpace = 10,
-					//csvPath = "/course/data/Consumer_Complaints.csv";
 					csvPath = "/course/data/top_complaint_companies.csv";
 
 				d3.csv(csvPath, function(data) {
-					/*
-					chartData = d3.nest()
-						// set rollup key
-						.key(function(d) { return d.Company; })
-						// rollup and count companies
-						.rollup(function(leaves) { return leaves.length; })
-						// load data
-						.entries(data)
-						// descending sort
-						.sort(function(a, b) { return b.values - a.values; })
-						// get top 10
-						.filter(function(d, i) {return i < 10});
-					*/
-
 					chartData = data
 						// descending sort
 						.sort(function(a, b) { return b.complaints - a.complaints; })
@@ -55,7 +41,8 @@
 					// get scaling function to properly adjust bar heights
 					var y = d3.scale.linear()
 						.domain([0, d3.max(chartData, function(d) {return parseInt(d.complaints);})])
-						.range([0, height]);
+						//.range([0, height]);
+						.range([height, 0]);
 
 					// set chart dimensions
 					var chart = d3.select('#top_complaints')

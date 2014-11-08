@@ -19,7 +19,8 @@
 									.attr('height', height)
 									.attr('width', width);
 
-				d3.csv('../../../../course/data/Consumer_Complaints.csv', function(data) {
+				d3.csv('/course/data/Consumer_Complaints.csv', function(data) {
+					debugger;
 					var nestedData = d3.nest()
 											// set rollup key
 											.key(function(d) { return d.Company; })

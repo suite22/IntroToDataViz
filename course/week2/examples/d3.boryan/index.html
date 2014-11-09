@@ -1,0 +1,172 @@
+<html>
+	<head>
+	</head>
+	<style>
+		 body {
+			font: 10px sans-serif;
+		 }
+
+		 #chart {
+			  padding: 25px;
+		 }
+
+		 .axis path, .axis line {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+		 }
+
+		 .theline {
+			fill: none;
+			stroke: steelblue;
+			stroke-width: 1.5px;
+		 }
+
+		 .dots circle {
+			fill: white;
+			stroke: steelblue;
+			stroke-width: 1.5px;
+		 }
+	</style>
+<body>
+
+    <div id="chart">
+    </div>
+
+    <!-- Include d3.js -->
+    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        
+        height = 500
+        width = 500
+        margin = 50
+
+        d3.select("#chart").append("h1")
+                            .text("Percentage of overall wealth owned by the wealthiest 1% of Americans over time.")
+
+        var viz = d3.select("#chart").append("svg")
+                                        .attr("id", "viz")
+                                        .attr('height', height + margin * 2)
+                                        .attr('width', width + margin * 2)
+                                     .append('g')
+                                        .attr("transform", "translate(" + margin + "," + margin + ")");
+
+        var xScale = d3.scale.linear()
+                              .range([0, width]);
+
+        // the data is in percentages, so the y domain is 0-100 as in percent.
+        var yScale = d3.scale.linear()
+                              .domain([0, 100])
+                              .range([height, 0])
+
+        var xAxis = d3.svg.axis()
+                            .scale(xScale)
+                            .orient("bottom")
+                            .tickFormat(function(d) {
+                            	return d.toString();
+                            });
+
+        var yAxis = d3.svg.axis()
+                            .scale(yScale)
+                            .orient("left");
+
+        var makeLine = function(key) {
+        					return d3.svg.line()
+                        .x(function(d) { return xScale( d.Year ); })
+                        .y(function(d) { return yScale( parseFloat(d[key]) ); })
+                        .interpolate("linear");
+                     };
+
+			var line2 = d3.svg.line()
+				.interpolate("linear")
+				.x(function (d, i) {
+					//debugger;
+					return xScale( d.x );
+				})
+				.y(function (d, i) {
+					//debugger;
+					return yScale( parseFloat(d.y) );
+				});
+
+        d3.csv('/course/data/Inequality.csv', function(data) {
+
+            //viz.datum(data)
+
+            layeredData = d3.keys(data[0]).slice(1).map(function(segment) { 
+					return data.map(function(d) {
+						//debugger;
+						return {
+							y: parseInt( d[segment] ),
+							x: d.Year
+						}
+					});
+            });
+            
+            //viz.datum(layeredData);
+
+				xScale.domain([
+						d3.min(data, function(d){return d.Year}),
+						d3.max(data, function(d){return d.Year})
+						]);
+
+            viz.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            viz.append("g")
+                .attr("class", "y axis")
+                .call(yAxis);
+
+				var lines = viz.selectAll("g.lines")
+					.data(layeredData)
+					.enter().append("g")
+					.attr("class", "line");
+					
+				lines.append("path")
+					.attr("class", "theline")
+					.attr("d", function (d, i) {
+						//debugger;
+						return line2(d, i);
+					});
+
+/*
+				d3.keys(data[0]).slice(1).forEach(function(value, index) {
+					var line = makeLine(value);
+					viz.append("path")
+						 .attr("d", line)
+						 .attr("class", "theline");
+	
+					//debugger;
+					//dots.attr("transform", function(d) {
+					//	return "translate(" + line.x()(d) + "," + line.y()(d) + ")"
+					//});	
+				});
+*/
+				//debugger;
+
+				viz.selectAll("g.dots")
+					.data(layeredData)
+					.enter().append("g")
+					.attr("class", "dots")
+					//.append("circle")
+					.selectAll("circle")
+					.data(function(d) {
+						return d;
+					})
+						.enter().append("circle")
+						.attr("r", 3)
+						.attr("cx", function(d,i) { 
+							//debugger;
+							return xScale(d.x); 
+						})
+						.attr("cy", function(d,i) {
+							//debugger; 
+							return yScale(parseFloat(d.y)); 
+						});
+										
+            //dots.append("circle")
+            //     .attr("r", 3.5);
+         })
+    </script>
+</body>

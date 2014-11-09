@@ -70,14 +70,7 @@
                             .scale(yScale)
                             .orient("left");
 
-        var makeLine = function(key) {
-        					return d3.svg.line()
-                        .x(function(d) { return xScale( d.Year ); })
-                        .y(function(d) { return yScale( parseFloat(d[key]) ); })
-                        .interpolate("linear");
-                     };
-
-			var line2 = d3.svg.line()
+			var line = d3.svg.line()
 				.interpolate("linear")
 				.x(function (d, i) {
 					//debugger;
@@ -126,47 +119,27 @@
 				lines.append("path")
 					.attr("class", "theline")
 					.attr("d", function (d, i) {
-						//debugger;
-						return line2(d, i);
+						return line(d, i);
 					});
-
-/*
-				d3.keys(data[0]).slice(1).forEach(function(value, index) {
-					var line = makeLine(value);
-					viz.append("path")
-						 .attr("d", line)
-						 .attr("class", "theline");
-	
-					//debugger;
-					//dots.attr("transform", function(d) {
-					//	return "translate(" + line.x()(d) + "," + line.y()(d) + ")"
-					//});	
-				});
-*/
-				//debugger;
 
 				viz.selectAll("g.dots")
 					.data(layeredData)
 					.enter().append("g")
 					.attr("class", "dots")
-					//.append("circle")
 					.selectAll("circle")
-					.data(function(d) {
+					.data(function(d, i) {
 						return d;
 					})
-						.enter().append("circle")
+						.enter()
+						.append("circle")
+						.filter(function(d) { return d.y > 0; })		
 						.attr("r", 3)
 						.attr("cx", function(d,i) { 
-							//debugger;
 							return xScale(d.x); 
 						})
 						.attr("cy", function(d,i) {
-							//debugger; 
 							return yScale(parseFloat(d.y)); 
 						});
-										
-            //dots.append("circle")
-            //     .attr("r", 3.5);
          })
     </script>
 </body>

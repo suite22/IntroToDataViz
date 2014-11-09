@@ -41,17 +41,16 @@
     }
 
     .Top10 path {
-        fill: blue;
+        fill: rgba(0,280,90,0.5);
     }
-
     .Top1 path {
-        fill: red;
+        fill: rgba(0,210,60,0.75);
     }
     .Top05 path {
-        fill: orange;
+        fill: rgb(0,140,30);
     }
     .Top01 path {
-        fill: pink;
+        fill: rgb(0,70,15);
     }
 
 </style>
@@ -62,10 +61,11 @@
 
     <!-- Include d3.js -->
     <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
     <script type="text/javascript">
         
         height = 500
-        width = 500
+        width = 900
         margin = 50
 
         d3.select("#chart").append("h1")
@@ -83,7 +83,7 @@
         };
 
         var xScale = d3.time.scale()
-                              .domain([str2Date("1810"), str2Date("2020")])
+                              .domain([str2Date("1910"), str2Date("2010")])
                               .range([0, width]);
 
         // the data is in percentages, so the y domain is 0-100 as in percent.
@@ -128,15 +128,19 @@
         d3.csv('../../../../course/data/Inequality.csv', function(data) {            
             skipYear = ["Top10", "Top1", "Top05", "Top01"]
 
+            filteredData = data.filter( function(d, i) { 
+                return str2Date(d.Year) > str2Date("1900");
+                })
+
             layeredData = skipYear.map(function(segment) { 
-                return data.map(function(d) {
+                return filteredData.map(function(d) {
                         return {
                           y: parseInt( d[segment] ),
                           x: str2Date(d.Year)
                         }
                     });
             });
-            
+
             layers = stack(layeredData)
 
             viz.append("g")

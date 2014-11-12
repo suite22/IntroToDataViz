@@ -66,9 +66,9 @@
                             	return d.toString();
                             });
 
-        var yAxis = d3.svg.axis()
-                            .scale(yScale)
-                            .orient("left");
+			var yAxis = d3.svg.axis()
+				.scale(yScale)
+				.orient("left");
 
 			var line = d3.svg.line()
 				.interpolate("linear")
@@ -81,21 +81,18 @@
 					return yScale( parseFloat(d.y) );
 				});
 
-        d3.csv('/course/data/Inequality.csv', function(data) {
+			d3.csv('/course/data/Inequality.csv', function(data) {
 
-            //viz.datum(data)
-
+				// format data into 4 arrays corresponding to 4 lines in chart
             layeredData = d3.keys(data[0]).slice(1).map(function(segment) { 
 					return data.map(function(d) {
 						//debugger;
 						return {
-							y: parseInt( d[segment] ),
-							x: d.Year
+							x: d.Year,
+							y: parseInt( d[segment] )
 						}
 					});
             });
-            
-            //viz.datum(layeredData);
 
 				xScale.domain([
 						d3.min(data, function(d){return d.Year}),

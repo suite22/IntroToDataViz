@@ -1,16 +1,39 @@
-<html>
-	<head>Portland Code School Final Project: City Visualization</head>
-	<style type="text/css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Portland Code School Final Project: City Visualization</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 
-	</style>
+	<!-- Include d3.js -->
+	<script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="js/datamaps.usa.min.js" charset="utf-8"></script>
+</head>
 <body>
-
-    <div id="chart">
-    </div>
-
-    <!-- Include d3.js -->
-    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
-    <script type="text/javascript">
-   
-    </script>
+	<div class="container">
+		<form role="form">
+			<div class="row">
+				<div class="col-md-12">
+					<label for="city">City:</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-11">
+					<input type="text" class="form-control" id="city" placeholder="Enter full or partial city name here">
+				</div>
+				<div class="col-md-1">
+					<button type="submit" class="btn btn-default">Update</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 map-container">
+					<div id="usmap"></div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="js/main.js"></script>
 </body>

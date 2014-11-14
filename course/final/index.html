@@ -17,7 +17,7 @@
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script src="js/datamaps.usa.min.js"></script>
 
-    <div id="container" style="position: relative; width: 500px; height: 300px;"></div>
+    <div id="container" style="position: relative; width: 1000px; height: 800px;"></div>
         <script>
             var cities = [];
 
@@ -26,7 +26,7 @@
                 scope: 'usa'
             });
 
-            var jsonCities = d3.json("data/cities-short.json", function(cityData) {
+            var jsonCities = d3.json("data/cities.json", function(cityData) {
                 //debugger;
 
                 citiesD3 = cityData.map( function(row) {
@@ -36,7 +36,7 @@
                         latitude: row.la,
                         longitude: row.lo,
                         city: row.ci,
-                        radius: 2
+                        radius: 1
                     }
                 })
 

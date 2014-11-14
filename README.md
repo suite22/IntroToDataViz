@@ -17,3 +17,6 @@ python -m SimpleHTTPServer
 # navigate to any of the examples folders
 # eg. course/week1/examples/selections
 ```
+
+### Syncing This Fork With @hdngr
+https://help.github.com/articles/syncing-a-fork/

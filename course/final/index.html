@@ -1,5 +1,15 @@
 <html>
 <head>
+    <title>PCS Final Project: City Visualization</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <!-- Include d3.js -->
+    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="js/datamaps.usa.min.js"></script>
 </head>
 <style>
     body {
@@ -8,55 +18,67 @@
 
 </style>
 <body>
-
-    <div id="chart">
+    <div class="container">
+        <form role="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="city">City:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-11">
+                    <input type="text" class="form-control" id="city" placeholder="Enter full or partial city name here">
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-default">Update</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 map-container">
+                    <div id="usmap"></div>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <!-- Include d3.js -->
-    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script src="js/datamaps.usa.min.js"></script>
-
+    <script src="js/mainBen.js"></script>
     <div id="container" style="position: relative; width: 1000px; height: 800px;"></div>
-        <script>
-            var cities = [];
+        // <script>
+        //     var cities = [];
 
-            var map = new Datamap({
-                element: document.getElementById('container'),
-                scope: 'usa'
-            });
+        //     var map = new Datamap({
+        //         element: document.getElementById('container'),
+        //         scope: 'usa',
+        //         geographyConfig: {
+        //             popupOnHover: false,
+        //             highlightOnHover: false
+        //         },
+        //         bubbleConfig: {
+        //             borderColor: '#35A4FF',
+        //             highlightFillOpacity: 0.50
+        //         }
+        //     });
 
-            var jsonCities = d3.json("data/cities.json", function(cityData) {
-                //debugger;
+        //     var jsonCities = d3.json("data/cities-short.json", function(cityData) {
+        //         //debugger;
 
-                citiesD3 = cityData.map( function(row) {
-                    //debugger;
+        //         citiesD3 = cityData.map( function(row) {
+        //             //debugger;
                 
-                    return {
-                        latitude: row.la,
-                        longitude: row.lo,
-                        city: row.ci,
-                        radius: 1
-                    }
-                })
+        //             return {
+        //                 latitude: row.la,
+        //                 longitude: row.lo,
+        //                 city: row.ci,
+        //                 radius: 0.5
+        //             }
+        //         })
 
-                map.bubbles(citiesD3, {
-                    popupTemplate: function (geo, data) {
-                        return ['<div class="hoverinfo">' + data.city,
-                        '</div>'].join('');
-                    }
-                })
-
-                //console.log(cityData)
-                //debugger;
-            })
-
-            // var cities = [{
-            //     radius: 2, id:1378420, city:"A B C Creek", state:"TX", latitude:33.0406548, longitude: -100.5626130
-            // }]
-
-            // draw bubbles for bombs
-            
-        </script>
+        //         map.bubbles(citiesD3, {
+        //             popupTemplate: function (geo, data) {
+        //                 return ['<div class="hoverinfo">' + data.city,
+        //                 '</div>'].join('');
+        //             }
+        //         })
+        //     })            
+        // </script>
 
 </body>

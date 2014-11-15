@@ -6,12 +6,16 @@
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-
-	<!-- Include d3.js -->
+	
+	<!--
 	<script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
-	<script src="js/datamaps.usa.min.js" charset="utf-8"></script>
+	-->
+	<script src="js/d3.v3.min.js"></script>
+	<script src="js/topojson.v1.min.js"></script>
+	<script src="js/lodash.v2.4.1.min.js"></script>
+	<script src="js/datamaps.usa.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -35,6 +39,10 @@
 				</div>
 			</div>
 		</form>
+		<p class="timer">
+			<span class="execution_time"></span> milliseconds, 
+			<span class="record_count"></span> records
+		</p>
 	</div>
 	<script src="js/main.js"></script>
 </body>

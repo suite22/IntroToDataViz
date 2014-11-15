@@ -23,7 +23,7 @@ var jsonCities = d3.json("data/cities-short.json", function(cityData) {
             latitude: row.la,
             longitude: row.lo,
             city: row.ci,
-            radius: 1
+            radius: 2
         }
     })
 
@@ -40,6 +40,8 @@ d3.select("#city").on("input", function() {
 
 	// as the user updates the search field, create a new filtered selection
 	// then update the map. 
-	var userSearch = citiesD3.filter(this.value);
+	var userSearch = jsonCities.filter( function(d, i) { 
+                return str2Date(d.Year) > str2Date("1900");
+                })
 	console.log(userSearch);
 });

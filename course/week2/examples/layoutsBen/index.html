@@ -17,7 +17,7 @@
     }
 
     .theline {
-      fill: none;
+      fill: steelblue;
       stroke: steelblue;
       stroke-width: 1.5px;
     }
@@ -164,7 +164,37 @@
                 .attr("d", function (d) {
                     return area(d)
                 })
-                .attr('class', "stackedpath");
+                .attr('class', "stackedpath")
+                .on("mouseover", areaMouseOver)
+                .on("mouseout", areaMouseOut);
+
+            function areaMouseOver(d) {
+              yearCursor.attr('class', 'visible')
+                        //.attr('transform', "translate(" + line.x()(d) + ", 0)");
+                        console.log("moused over area")
+              
+              yearCursor.select('line')
+                         .attr('x1', 0)
+                         .attr('x2', 0)
+                         .attr('y1', 0)
+                         .attr('y2', height)
+                         .attr('stroke', 'black')
+                         .attr('stroke-width', "10");
+
+              yearCursor.select('text')
+                         .text('In ' + d.Year + ', the wealthiest 1% of Americans owned ' + d.Top1 + ' of all wealth.');
+
+              viz.select('.theline')
+                  .classed({'hovered': true});
+                  // or you could write like this,
+                  // .classed('hovered', true)
+            };
+
+            function areaMouseOut(d) {
+              yearCursor.attr('class', 'invisible');
+              viz.select('.theline')
+                  .classed('hovered', false);
+            };
         });
     </script>
 </body>

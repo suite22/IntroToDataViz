@@ -170,9 +170,13 @@
 
             function areaMouseOver(d) {
               yearCursor.attr('class', 'visible')
-                        //.attr('transform', "translate(" + line.x()(d) + ", 0)");
+                        .attr('transform', "translate(" + d3.event.x + ", 0)");
                         console.log("moused over area")
               
+              // listen for the d3.event.x location
+              // work back from xAxis or xScale to find the closest year
+
+
               yearCursor.select('line')
                          .attr('x1', 0)
                          .attr('x2', 0)

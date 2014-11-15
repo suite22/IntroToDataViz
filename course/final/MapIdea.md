@@ -8,3 +8,6 @@
 - look into d3 
 
 http://datamaps.github.io/
+
+Fade the dots in over time? Delay the draw so we can see what's happening? 
+Somehow we have to find a way to speed up the process?

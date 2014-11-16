@@ -1,4 +1,4 @@
-(function() {
+// (function() {
     var map = new Datamap({
          element: document.getElementById("usmap"),
          scope:"usa",
@@ -84,4 +84,4 @@
         this.time = 0;
         this.reset();       
     }
-})();
+// })();

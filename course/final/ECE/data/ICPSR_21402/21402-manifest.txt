@@ -1,0 +1,100 @@
+File Manifest for ICPSR 21402
+
+Groebe, Deana, Clara C. Pratt, and Roberta B. Weber. Child Care Market Rate
+Survey Practices and Policies of States, Territories, and Tribes, 2005-
+2006. ICPSR21402-v2. Ann Arbor, MI: Inter-university Consortium for
+Political and Social Research [distributor], 2009-02-13.
+http://doi.org/10.3886/ICPSR21402.v2
+
+Details on the version history can be found below the file listings.
+
+
+Study-level Documentation
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21402-manifest.txt                  -       -         -       2014-11-22  -
+
+    21402-Codebook.pdf                  -       -         -       2009-02-13  8f78692b0665d32fee48f326c8469a1e
+
+    21402-Documentation.pdf             -       -         -       2008-10-24  ed76bbe855b1d7411b137c9170b0f7f9
+
+    21402-Questionnaire.pdf             -       -         -       2008-10-24  c442d50ca3f442925730cf5b5cbc46b4
+
+
+DS0001 Market Rate Survey Data
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21402-0001-Data.dta                 -       53        293     2008-10-24  61f10c4c29ba5c876830c3326fb8f1bd
+
+    21402-0001-Data.sav                 -       53        293     2008-10-24  3e510ff9e766f11c4392c68913f6f773
+
+    21402-0001-Data.stc                 -       53        293     2008-10-24  12149cf33ff9d3785f07484b0ec492da
+
+    21402-0001-Data.tsv                 -       53        293     2008-10-24  a6e951a4ea9632e70b301160c054529b
+
+    21402-0001-Data.txt                 2388    53        293     2008-10-24  996f2b632948cb60bfcb97bf7990c587
+
+    21402-0001-Setup.dct                -       -         -       2008-10-24  7dc31331f8af9b682fb9ca206aae2696
+
+    21402-0001-Setup.do                 -       -         -       2008-10-24  c4189cb761da6067803bf52aeb748821
+
+    21402-0001-Setup.sas                -       -         -       2008-10-24  4a06bc7c2b46188dbbc1bba6a19d4a05
+
+    21402-0001-Setup.sps                -       -         -       2008-10-24  74bc3c79ed76c5db2b06f1776a9739c0
+
+    21402-0001-Supplemental_syntax.sas  -       -         -       2008-10-24  5017b301e0682db3708f5b4118d4db7c
+
+
+DS0002 Market Rate Survey Open-Ended Responses Data
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21402-0002-Data.sav                 -       53        59      2008-10-24  3c1bb300dd0882667ae6684824f2dd6d
+
+    21402-0002-Data.tsv                 -       53        59      2008-10-24  41a3ce5027903d15fe3756fd70a25271
+
+    21402-0002-Data.txt                 13989   53        59      2008-10-24  cc1c3dafc39ea7ee14c3491b961d4de2
+
+    21402-0002-Qualitative_data.xls     -       -         -       2008-10-24  e1ae7d3e8fbcda767a99cb41317e6ff3
+
+    21402-0002-Setup.sps                -       -         -       2008-10-24  1e493ed2bd4a486b42aac5cbf59a547d
+
+
+DS0003 Market Rate Survey Qualitative Data
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21402-0003-Data.sav                 -       53        54      2008-10-24  8c4b984ea061573c0ba776d4a178a22b
+
+    21402-0003-Data.tsv                 -       53        54      2008-10-24  8c72ede3ed02977096fb0284b7145a5a
+
+    21402-0003-Data.txt                 20231   53        54      2008-10-24  88c0dc5ae33af176ae5c9f1f4b217855
+
+    21402-0003-Qualitative_data.xls     -       -         -       2008-10-24  e1ae7d3e8fbcda767a99cb41317e6ff3
+
+    21402-0003-Setup.sps                -       -         -       2008-10-24  18411a04c15cfb0a3074020c0eace6ac
+
+
+DS0004 Market Rate Survey Merged Data
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    21402-0004-Data.sav                 -       53        401     2008-10-24  8e5f198c0fab1768a7fb0885073cf073
+
+    21402-0004-Data.tsv                 -       53        401     2008-10-24  2cbd7372c4697db0b727577af269cb33
+
+    21402-0004-Data.txt                 35835   53        401     2008-10-24  656d03ee1077c7cc0fbc294d03f093ff
+
+    21402-0004-Setup.sps                -       -         -       2008-10-24  837048fcf7ca7c13b627d73f941a46ae
+
+
+Version History
+
+2009-02-13 Variables "Start" and "End" removed from codebook.

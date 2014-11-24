@@ -7,8 +7,8 @@
 	height:600px;
 	width:100%;
 }
-#usmap .datamaps-hoverover {
-	/*display:block !important;*/
+#usmap .datamaps-hoverover .hoverinfo {
+	font-size:.8em !important;
 }
 .timer {
 	font-size:.8em;

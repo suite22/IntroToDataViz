@@ -1,33 +1,60 @@
 (function() {
-	var map = new Datamap({
-		 element: document.getElementById("usmap"),
-		 scope:"usa",
-		 geographyConfig: {
-			  popupOnHover:false,
-			  highlightOnHover:false
-		 },
-		 bubbleConfig: {
-			  borderColor:'#35A4FF',
-			  highlightFillOpacity:0.25,
-			  highlightOnHover:true,
-			  popupOnHover:true
-		 }
-	});
+	var minRadius = 1,
+		currentRadius = minRadius,
+		maxSampleSize = 3000;
 
-	var jsonCities = d3.json("data/cities.json", function(data) {
-		var timer = new Timer(),
-			allCities = [],
-			cities = [];
+	var map = new Datamap({
+		element: document.getElementById("usmap"),
+			scope:"usa",
+			geographyConfig: {
+			popupOnHover:false,
+			highlightOnHover:false
+		},
+		bubblesConfig: {
+			animationComplete: function(datamap, bubbles) {
+				bubbles
+					.transition()
+					.duration(100)
+					.attr("r", function ( datum ) {
+						return datum.radius;
+					});
+			},	
+			borderColor: '#35A4FF',
+			borderWidth: 1,
+			fillColor: '#35A4FF',
+			fillOpacity: 0.2,	
+			highlightFillOpacity: 0.25,
+			highlightOnHover: true,
+			popupOnHover: true
+		},
+		done: function(datamap) {
+			datamap.svg.selectAll('.datamaps-subunit').on('click', function(geo) {
+				alert(geo.properties.name);
+			});
+		}		 
+	});
 	
+	var jsonCities = d3.json("data/cities.json", function(data) {
 		// format the data for the topojson format
-		allCities = formatToDataMaps(data);
+		var allCities = formatToDataMaps(data),
+			refreshingMap = false;
 	 
 	 	// update bubbles on map
 		filterCities(allCities);
 
 		// event handler for when city name is changed
 		d3.select("#city").on("input", function() {
-			filterCities(allCities, this.value);
+			var self = this;
+			
+			// prevents the map from being repeatedly refreshed when multiple input events
+			// are fired in a short amount of time
+			if(!refreshingMap) {
+				refreshingMap = true;
+				setTimeout(function() {
+					filterCities(allCities, self.value);
+					refreshingMap = false;
+				}, 500);
+			}
 		});
 	});
 
@@ -51,9 +78,6 @@
 			cities = sampleData(data);
 		}
 
-		// check to see if sample size is < 10
-		//cities = _.map
-
 		// refresh bubbles on map	
 		updateDataMap(cities);
 		
@@ -63,30 +87,43 @@
 	
 	/* formats json data to DataMaps format */
 	function formatToDataMaps(data) {
-		return _.map(data, function(row) {
+		data = _.map(data, function(row) {
 			return {
 				latitude: row.la,
 				longitude: row.lo,
 				city: row.ci,
-				radius: 2
+				state: row.st,
+				radius: currentRadius
 			}
 		});
+		return data;
 	}
 	
 	/* reduces dataset size, so as not to overwhelm the map with too many data points */
 	function sampleData(data) {
 		// todo: try to add population
-		return _.sample(data, 1000);
+		return _.sample(data, maxSampleSize);
 	}
 	
 	/* calls the DataMap library to refresh the bubbles on map */
 	function updateDataMap(data) {
-		map.bubbles(data, {
-			popupTemplate: function (geo, d) {
-				return ['<div class="hoverinfo">' + d.city,
-				'</div>'].join('');
-			}
+		var radiusScale = d3.scale.sqrt()
+			.domain([1, maxSampleSize])
+			.rangeRound([10, minRadius]);
+		
+		currentRadius = radiusScale(data.length);
+		
+		data = _.map(data, function(row) {
+			row.radius = currentRadius;
+			return row;
 		});
+		
+		map.bubbles(data, {
+			popupTemplate: function (geo) {
+				return '<div class="hoverinfo">' + geo.city +
+					', ' + geo.state + '</div>';
+			}
+		});		
 	} 
 
 	/* updates the text statistics below the graph */
@@ -115,6 +152,7 @@
 		this.time = 0;
 		this.reset();		
 	}
+	
 })();
 
 
